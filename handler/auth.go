@@ -44,16 +44,16 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 	reqMsg := req.Msg.AccessToken
 	token := reqMsg
 
-	rep := GetAuth0(token)
+	rsp := GetAuth0(token)
 
 	resp := &pb.GetAccountResponse{
 		UserInfo: &pb.UserInfo{
-			Sub:       rep.Sub,
-			Name:      rep.Name,
-			Nickname:  rep.Nickname,
-			Picture:   rep.Picture,
-			UpdatedAt: rep.UpdatedAt,
-			Email:     rep.Email,
+			Sub:       rsp.Sub,
+			Name:      rsp.Name,
+			Nickname:  rsp.Nickname,
+			Picture:   rsp.Picture,
+			UpdatedAt: rsp.UpdatedAt,
+			Email:     rsp.Email,
 		},
 	}
 	return connect.NewResponse(resp), nil
