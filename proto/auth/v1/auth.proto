@@ -28,6 +28,14 @@ service AuthService {
       body : "*"
     };
   };
+
+  // signs a user out
+  rpc SignOut(SignOutRequest) returns (SignOutResponse){
+     option (google.api.http) = {
+      post : "/SignOut"
+      body : "*"
+    };
+  };
 }
 
 // Create contains information needed to create a new authUser.
@@ -60,6 +68,16 @@ message GetAccountRequest {
 // GetAccountResponse returns the user that was requested
 message GetAccountResponse {
    UserInfo user_info = 1;
+}
+
+// SignOutRequest contains the information needed to sign a user out
+message SignOutRequest {
+//     string access_token = 1;
+}
+
+// SignOutResponse returns the user null value
+message SignOutResponse {
+    string message = 1;
 }
 
 // Data types for requests and responses

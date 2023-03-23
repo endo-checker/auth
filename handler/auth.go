@@ -58,3 +58,15 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 	}
 	return connect.NewResponse(resp), nil
 }
+
+func (s *SignInServer) SignOut(ctx context.Context, req *connect.Request[pb.SignOutRequest]) (*connect.Response[pb.SignOutResponse], error) {
+	reqMsg := req.Msg
+	// tkn := reqMsg.AccessToken
+
+	rsp := ClearCache(reqMsg)
+
+	resp := &pb.SignOutResponse{
+		Message: rsp,
+	}
+	return connect.NewResponse(resp), nil
+}

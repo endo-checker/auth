@@ -115,6 +115,40 @@
           "AuthService"
         ]
       }
+    },
+    "/SignOut": {
+      "post": {
+        "summary": "signs a user out",
+        "operationId": "AuthService_SignOut",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1SignOutResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "description": "string access_token = 1;",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1SignOutRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -259,6 +293,20 @@
         }
       },
       "title": "returns the user that was signed in"
+    },
+    "v1SignOutRequest": {
+      "type": "object",
+      "description": "string access_token = 1;",
+      "title": "SignOutRequest contains the information needed to sign a user out"
+    },
+    "v1SignOutResponse": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        }
+      },
+      "title": "SignOutResponse returns the user null value"
     },
     "v1UserInfo": {
       "type": "object",

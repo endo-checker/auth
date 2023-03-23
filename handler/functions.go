@@ -90,3 +90,10 @@ func getCachedTkn() string {
 	tkn = cache.Get("token")
 	return tkn.(string)
 }
+
+func ClearCache(nullReq interface{}) string {
+	cache.Register(cache.DvrFile, cache.NewFileCache(""))
+	cache.Del("token")
+
+	return "Cache cleared"
+}
