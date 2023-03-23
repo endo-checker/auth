@@ -11,6 +11,7 @@ import (
 	"os"
 
 	"github.com/bufbuild/connect-go"
+	"github.com/gookit/cache"
 	"github.com/joho/godotenv"
 
 	pb "github.com/endo-checker/auth/internal/gen/auth/v1"
@@ -20,6 +21,8 @@ import (
 type SignInServer struct {
 	pbcnn.UnimplementedAuthServiceHandler
 }
+
+var tkn interface{}
 
 const auth0Domain = "https://react-messaging.au.auth0.com"
 
@@ -56,15 +59,17 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	respBody := []byte(body)
 	var rep map[string]interface{}
 	json.Unmarshal(respBody, &rep)
+	tkn := cacheToken(rep["access_token"].(string))
 
 	resp := &pb.SignInResponse{
-		AccessToken: rep["access_token"].(string),
+		AccessToken: tkn,
 		Scope:       rep["scope"].(string),
 		ExpiresIn:   int32(rep["expires_in"].(float64)),
 		IdToken:     rep["id_token"].(string),
 		TokenType:   rep["token_type"].(string),
 	}
 
+	r.Header.Add("Authorization", "Bearer "+rep["access_token"].(string))
 	return connect.NewResponse(resp), nil
 }
 
@@ -96,13 +101,32 @@ type UserInfo struct {
 	Email     string `json:"email"`
 }
 
+func cacheToken(token string) string {
+
+	if token != "" {
+		cache.Register(cache.DvrFile, cache.NewFileCache(""))
+		cache.Set("token", token, cache.TwoDay)
+		tkn = cache.Get("token")
+	}
+	return tkn.(string)
+}
+
+func getCachedTkn() string {
+
+	cache.Register(cache.DvrFile, cache.NewFileCache(""))
+	tkn = cache.Get("token")
+	return tkn.(string)
+}
+
 func getAuth0(token string) UserInfo {
+	tkn := getCachedTkn()
+
 	url := auth0Domain + "/userinfo"
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println(err)
 	}
-	r.Header.Set("Authorization", "Bearer "+token)
+	r.Header.Add("Authorization", "Bearer "+tkn)
 
 	res, err := http.DefaultClient.Do(r)
 	if err != nil {
@@ -115,7 +139,7 @@ func getAuth0(token string) UserInfo {
 	}
 
 	respBody := []byte(body)
-	var rep UserInfo
+	rep := UserInfo{}
 	json.Unmarshal(respBody, &rep)
 
 	return rep
