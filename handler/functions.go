@@ -6,15 +6,18 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
 	"time"
 
 	"github.com/endo-checker/auth/model"
 	"github.com/gookit/cache"
+	"github.com/joho/godotenv"
 )
 
-const auth0Domain = "https://react-messaging.au.auth0.com"
-
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
+	godotenv.Load()
+	auth0Domain := os.Getenv("AUTH0_DOMAIN")
+
 	json_data, err := json.Marshal(auth)
 	if err != nil {
 		fmt.Println(err)
@@ -46,8 +49,10 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 }
 
 func GetAuth0(token string) model.UserInfo {
-	tkn := getCachedTkn()
+	godotenv.Load()
+	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
+	tkn := getCachedTkn()
 	url := auth0Domain + "/userinfo"
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
