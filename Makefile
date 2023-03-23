@@ -20,15 +20,13 @@ rungo:
 run:
 	dapr run \
 		--app-id auth \
-		--app-port 8082 \
-		--app-protocol grpc \
-		--config ./.dapr/config.yaml \
-		--components-path ./.dapr/components \
+		--app-port 8084 \
+		--app-protocol http \
 		go run .
 
 .PHONY: kill
 kill:
-	lsof -P -i TCP -s TCP:LISTEN | grep 8082 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
+	lsof -P -i TCP -s TCP:LISTEN | grep 8084 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 	lsof -P -i TCP -s TCP:LISTEN | grep 9090 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 
 .PHONY: test
