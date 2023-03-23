@@ -18,8 +18,6 @@ type SignInServer struct {
 
 var tkn interface{}
 
-const auth0Domain = "https://react-messaging.au.auth0.com"
-
 func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignInRequest]) (*connect.Response[pb.SignInResponse], error) {
 	reqMsg := req.Msg
 	auth := reqMsg.AuthUserSignIn

@@ -12,6 +12,8 @@ import (
 	"github.com/gookit/cache"
 )
 
+const auth0Domain = "https://react-messaging.au.auth0.com"
+
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	json_data, err := json.Marshal(auth)
 	if err != nil {
