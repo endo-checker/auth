@@ -6,12 +6,13 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 
 	"github.com/endo-checker/auth/model"
 	"github.com/gookit/cache"
 )
 
-func Auth0SignIn(auth interface{}) (string, model.SignIn) {
+func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	json_data, err := json.Marshal(auth)
 	if err != nil {
 		fmt.Println(err)
@@ -35,18 +36,11 @@ func Auth0SignIn(auth interface{}) (string, model.SignIn) {
 	}
 
 	respBody := []byte(body)
-	var rep map[string]interface{}
-	json.Unmarshal(respBody, &rep)
-	tkn := cacheToken(rep["access_token"].(string))
+	rep := &model.SignIn{}
+	json.Unmarshal(respBody, rep)
+	tkn := cacheToken(rep.AccessToken, rep.ExpiresIn)
 
-	r.Header.Add("Authorization", "Bearer "+rep["access_token"].(string))
-
-	return tkn, model.SignIn{
-		Scope:     rep["scope"].(string),
-		ExpiresIn: int32(rep["expires_in"].(float64)),
-		IdToken:   rep["id_token"].(string),
-		TokenType: rep["token_type"].(string),
-	}
+	return tkn, rep
 }
 
 func GetAuth0(token string) model.UserInfo {
@@ -76,10 +70,10 @@ func GetAuth0(token string) model.UserInfo {
 	return rep
 }
 
-func cacheToken(token string) string {
+func cacheToken(token string, expires int32) string {
 	if token != "" {
 		cache.Register(cache.DvrFile, cache.NewFileCache(""))
-		cache.Set("token", token, cache.TwoDay)
+		cache.Set("token", token, time.Duration(expires)*time.Second)
 		tkn = cache.Get("token")
 	}
 	return tkn.(string)

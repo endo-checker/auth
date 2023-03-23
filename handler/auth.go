@@ -33,8 +33,8 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	resp := &pb.SignInResponse{
 		AccessToken: tkn,
 		IdToken:     rsp.IdToken,
-		ExpiresIn:   rsp.ExpiresIn,
 		Scope:       rsp.Scope,
+		ExpiresIn:   rsp.ExpiresIn,
 		TokenType:   rsp.TokenType,
 	}
 	return connect.NewResponse(resp), nil
@@ -61,8 +61,6 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 
 func (s *SignInServer) SignOut(ctx context.Context, req *connect.Request[pb.SignOutRequest]) (*connect.Response[pb.SignOutResponse], error) {
 	reqMsg := req.Msg
-	// tkn := reqMsg.AccessToken
-
 	rsp := ClearCache(reqMsg)
 
 	resp := &pb.SignOutResponse{
