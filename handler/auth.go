@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+
 	"net/http"
 	"os"
 
@@ -71,6 +72,31 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 	reqMsg := req.Msg.AccessToken
 	token := reqMsg
 
+	rep := getAuth0(token)
+
+	resp := &pb.GetAccountResponse{
+		UserInfo: &pb.UserInfo{
+			Sub:       rep.Sub,
+			Name:      rep.Name,
+			Nickname:  rep.Nickname,
+			Picture:   rep.Picture,
+			UpdatedAt: rep.UpdatedAt,
+			Email:     rep.Email,
+		},
+	}
+	return connect.NewResponse(resp), nil
+}
+
+type UserInfo struct {
+	Sub       string `json:"sub"`
+	Name      string `json:"name"`
+	Nickname  string `json:"nickname"`
+	Picture   string `json:"picture"`
+	UpdatedAt string `json:"updated_at"`
+	Email     string `json:"email"`
+}
+
+func getAuth0(token string) UserInfo {
 	url := auth0Domain + "/userinfo"
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -89,19 +115,8 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 	}
 
 	respBody := []byte(body)
-	var rep map[string]interface{}
+	var rep UserInfo
 	json.Unmarshal(respBody, &rep)
 
-	resp := &pb.GetAccountResponse{
-		UserInfo: &pb.UserInfo{
-			Sub:       rep["sub"].(string),
-			Name:      rep["name"].(string),
-			Nickname:  rep["nickname"].(string),
-			Picture:   rep["picture"].(string),
-			UpdatedAt: rep["updated_at"].(string),
-			Email:     rep["email"].(string),
-		},
-	}
-
-	return connect.NewResponse(resp), nil
+	return rep
 }
