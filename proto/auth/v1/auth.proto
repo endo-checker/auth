@@ -44,7 +44,8 @@ message CreateAccountRequest  {
 }
 // CreateResponse returns the newly created authUser for the Create method.
 message CreateAccountResponse { 
-  RegisterAuthUser register_auth_user = 1; 
+  string access_token = 1;
+  RegisterAuthUser register_auth_user = 2; 
 }
 
 // logs a user in
@@ -96,9 +97,10 @@ message RegisterAuthUser {
     string given_name = 1;
     string family_name = 2;
     string email = 3;
-    string password = 4;
-    string connection  = 5;
-    string client_id = 6;
+    string nickname = 4;
+    string password = 5;
+    string connection  = 6;
+    string client_id = 7;
 }
 
 // user details

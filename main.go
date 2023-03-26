@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/endo-checker/auth/handler"
-
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
 	sv "github.com/endo-checker/common/server"
 )

@@ -215,6 +215,9 @@
     "v1CreateAccountResponse": {
       "type": "object",
       "properties": {
+        "accessToken": {
+          "type": "string"
+        },
         "registerAuthUser": {
           "$ref": "#/definitions/v1RegisterAuthUser"
         }
@@ -249,6 +252,9 @@
           "type": "string"
         },
         "email": {
+          "type": "string"
+        },
+        "nickname": {
           "type": "string"
         },
         "password": {

@@ -14,6 +14,40 @@ import (
 	"github.com/joho/godotenv"
 )
 
+func Auth0SignUp(auth interface{}) *model.SignUp {
+	godotenv.Load()
+	auth0Domain := os.Getenv("AUTH0_DOMAIN")
+
+	json_data, err := json.Marshal(auth)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	url := auth0Domain + "/dbconnections/signup"
+	r, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
+	if err != nil {
+		fmt.Println(err)
+	}
+	r.Header.Set("Content-Type", "application/json")
+
+	res, err := http.DefaultClient.Do(r)
+	if err != nil {
+		fmt.Print(err)
+	}
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	respBody := []byte(body)
+	rep := &model.SignUp{}
+	json.Unmarshal(respBody, rep)
+
+	return rep
+
+}
+
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")

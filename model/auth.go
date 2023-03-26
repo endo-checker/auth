@@ -1,5 +1,17 @@
 package model
 
+type SignUp struct {
+	GivenName   string `json:"given_name"`
+	FamilyName  string `json:"family_name"`
+	Email       string `json:"email"`
+	Nickname    string `json:"nickname"`
+	Password    string `json:"password"`
+	Connection  string `json:"connection"`
+	ClientId    string `json:"client_id"`
+	AccessToken string `json:"access_token"`
+	ExpiresIn   int32  `json:"expires_in"`
+}
+
 type UserInfo struct {
 	Sub       string `json:"sub"`
 	Name      string `json:"name"`

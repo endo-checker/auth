@@ -199,6 +199,8 @@ func (m *CreateAccountResponse) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for AccessToken
+
 	if all {
 		switch v := interface{}(m.GetRegisterAuthUser()).(type) {
 		case interface{ ValidateAll() error }:
@@ -1134,6 +1136,8 @@ func (m *RegisterAuthUser) validate(all bool) error {
 	// no validation rules for FamilyName
 
 	// no validation rules for Email
+
+	// no validation rules for Nickname
 
 	// no validation rules for Password
 

@@ -2,7 +2,7 @@ package handler
 
 import (
 	"context"
-
+	"fmt"
 	"os"
 
 	"github.com/bufbuild/connect-go"
@@ -18,9 +18,30 @@ type SignInServer struct {
 
 var tkn interface{}
 
+func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[pb.CreateAccountRequest]) (*connect.Response[pb.CreateAccountResponse], error) {
+	reqMsg := req.Msg
+	auth := reqMsg.RegisterAuthUser
+
+	godotenv.Load()
+	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
+	rep := Auth0SignUp(auth)
+
+	resp := &pb.CreateAccountResponse{
+		RegisterAuthUser: &pb.RegisterAuthUser{
+			Email:      rep.Email,
+			Nickname:   rep.Nickname,
+			GivenName:  rep.GivenName,
+			FamilyName: rep.FamilyName,
+		},
+	}
+	return connect.NewResponse(resp), nil
+}
+
 func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignInRequest]) (*connect.Response[pb.SignInResponse], error) {
 	reqMsg := req.Msg
 	auth := reqMsg.AuthUserSignIn
+
+	fmt.Println(auth)
 
 	godotenv.Load()
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
