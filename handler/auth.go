@@ -2,7 +2,6 @@ package handler
 
 import (
 	"context"
-	"fmt"
 	"os"
 
 	"github.com/bufbuild/connect-go"
@@ -16,14 +15,14 @@ type SignInServer struct {
 	pbcnn.UnimplementedAuthServiceHandler
 }
 
-var tkn interface{}
-
 func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[pb.CreateAccountRequest]) (*connect.Response[pb.CreateAccountResponse], error) {
 	reqMsg := req.Msg
 	auth := reqMsg.RegisterAuthUser
 
 	godotenv.Load()
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
+	auth.Connection = "Username-Password-Authentication"
+
 	rep := Auth0SignUp(auth)
 
 	resp := &pb.CreateAccountResponse{
@@ -41,11 +40,11 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	reqMsg := req.Msg
 	auth := reqMsg.AuthUserSignIn
 
-	fmt.Println(auth)
-
 	godotenv.Load()
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.ClientSecret = os.Getenv("AUTH_CLIENT_SECRET")
+	auth.GrantType = "password"
+	auth.Audience = ""
 
 	tkn, rsp := Auth0SignIn(auth)
 
@@ -67,12 +66,14 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 
 	resp := &pb.GetAccountResponse{
 		UserInfo: &pb.UserInfo{
-			Sub:       rsp.Sub,
-			Name:      rsp.Name,
-			Nickname:  rsp.Nickname,
-			Picture:   rsp.Picture,
-			UpdatedAt: rsp.UpdatedAt,
-			Email:     rsp.Email,
+			Sub:        rsp.Sub,
+			Name:       rsp.Name,
+			Nickname:   rsp.Nickname,
+			Picture:    rsp.Picture,
+			UpdatedAt:  rsp.UpdatedAt,
+			Email:      rsp.Email,
+			GivenName:  rsp.GivenName,
+			FamilyName: rsp.FamilyName,
 		},
 	}
 	return connect.NewResponse(resp), nil

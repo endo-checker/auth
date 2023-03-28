@@ -13,12 +13,14 @@ type SignUp struct {
 }
 
 type UserInfo struct {
-	Sub       string `json:"sub"`
-	Name      string `json:"name"`
-	Nickname  string `json:"nickname"`
-	Picture   string `json:"picture"`
-	UpdatedAt string `json:"updated_at"`
-	Email     string `json:"email"`
+	Sub        string `json:"sub"`
+	Name       string `json:"name"`
+	Nickname   string `json:"nickname"`
+	Picture    string `json:"picture"`
+	UpdatedAt  string `json:"updated_at"`
+	Email      string `json:"email"`
+	GivenName  string `json:"given_name"`
+	FamilyName string `json:"family_name"`
 }
 
 type SignIn struct {

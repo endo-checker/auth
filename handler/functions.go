@@ -14,6 +14,8 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var tkn interface{}
+
 func Auth0SignUp(auth interface{}) *model.SignUp {
 	godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
@@ -45,7 +47,6 @@ func Auth0SignUp(auth interface{}) *model.SignUp {
 	json.Unmarshal(respBody, rep)
 
 	return rep
-
 }
 
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {

@@ -105,13 +105,15 @@ message RegisterAuthUser {
 
 // user details
 message UserInfo {
-    string email = 1;
-    string email_verified = 2;
-    string name = 3;
-    string nickname = 4;
-    string picture = 5;
-    string sub = 6;
-    string updated_at = 7;
-    string user_id = 8;
-    string username = 9;
+    string given_name = 1;
+    string family_name = 2;
+    string email = 3;
+    string email_verified = 4;
+    string name = 5;
+    string nickname = 6;
+    string picture = 7;
+    string sub = 8;
+    string updated_at = 9;
+    string user_id = 10;
+    string username = 11;
 }

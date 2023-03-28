@@ -1245,6 +1245,10 @@ func (m *UserInfo) validate(all bool) error {
 
 	var errors []error
 
+	// no validation rules for GivenName
+
+	// no validation rules for FamilyName
+
 	// no validation rules for Email
 
 	// no validation rules for EmailVerified

@@ -317,6 +317,12 @@
     "v1UserInfo": {
       "type": "object",
       "properties": {
+        "givenName": {
+          "type": "string"
+        },
+        "familyName": {
+          "type": "string"
+        },
         "email": {
           "type": "string"
         },
