@@ -26,14 +26,17 @@ func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[p
 	rep := Auth0SignUp(auth)
 
 	resp := &pb.CreateAccountResponse{
+		Id: rep.Id,
 		RegisterAuthUser: &pb.RegisterAuthUser{
 			Email:      rep.Email,
 			Nickname:   rep.Nickname,
 			GivenName:  rep.GivenName,
-			FamilyName: rep.FamilyName,
+			FamilyName: rep.FamilyName, 
 		},
 	}
+
 	return connect.NewResponse(resp), nil
+
 }
 
 func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignInRequest]) (*connect.Response[pb.SignInResponse], error) {

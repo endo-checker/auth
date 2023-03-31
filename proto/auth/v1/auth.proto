@@ -44,7 +44,7 @@ message CreateAccountRequest  {
 }
 // CreateResponse returns the newly created authUser for the Create method.
 message CreateAccountResponse { 
-  string access_token = 1;
+  string id = 1;
   RegisterAuthUser register_auth_user = 2; 
 }
 

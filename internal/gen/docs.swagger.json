@@ -215,7 +215,7 @@
     "v1CreateAccountResponse": {
       "type": "object",
       "properties": {
-        "accessToken": {
+        "id": {
           "type": "string"
         },
         "registerAuthUser": {

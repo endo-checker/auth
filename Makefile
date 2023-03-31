@@ -1,6 +1,9 @@
 # load env vars
-# -include .env
-# export mongoUri := $(value mongoUri)
+-include .env
+export auth0-api-identifier  := $(value AUTH0_API_IDENTIFIER)
+export auth0-domain  := $(value AUTH0_DOMAIN)
+export auth0-client-id  := $(value AUTH0_CLIENT_ID)
+export auth0-client-secret  := $(value AUTH0_CLIENT_SECRET)
 
 # proto generates code from the most recent proto file(s)
 .PHONY: proto

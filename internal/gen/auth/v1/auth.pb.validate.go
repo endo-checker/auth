@@ -199,7 +199,7 @@ func (m *CreateAccountResponse) validate(all bool) error {
 
 	var errors []error
 
-	// no validation rules for AccessToken
+	// no validation rules for Id
 
 	if all {
 		switch v := interface{}(m.GetRegisterAuthUser()).(type) {
