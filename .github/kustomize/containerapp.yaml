@@ -23,7 +23,6 @@ properties:
       transport: Auto
     registries:
       - server: acrendochecker.azurecr.io
-        identity: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform
         username: acrendochecker
         passwordSecretRef: registry-secret
     dapr:
