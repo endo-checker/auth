@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	connect "github.com/bufbuild/connect-go"
+	"github.com/bufbuild/connect-go"
 
 	pb "github.com/endo-checker/auth/internal/gen/auth/v1"
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
@@ -17,8 +17,6 @@ type SignInServer struct {
 func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[pb.CreateAccountRequest]) (*connect.Response[pb.CreateAccountResponse], error) {
 	reqMsg := req.Msg
 	auth := reqMsg.RegisterAuthUser
-
-	// godotenv.Load()
 
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.Connection = "Username-Password-Authentication"
@@ -42,7 +40,6 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	reqMsg := req.Msg
 	auth := reqMsg.AuthUserSignIn
 
-	// godotenv.Load()
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.ClientSecret = os.Getenv("AUTH_CLIENT_SECRET")
 	auth.GrantType = "password"

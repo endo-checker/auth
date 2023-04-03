@@ -16,7 +16,6 @@ import (
 var tkn interface{}
 
 func Auth0SignUp(auth interface{}) *model.SignUp {
-	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	json_data, err := json.Marshal(auth)
@@ -52,7 +51,6 @@ func Auth0SignUp(auth interface{}) *model.SignUp {
 }
 
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
-	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	json_data, err := json.Marshal(auth)
@@ -89,7 +87,6 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 }
 
 func GetAuth0(token string) model.UserInfo {
-	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	tkn := getCachedTkn("token")
