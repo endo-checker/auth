@@ -8,7 +8,7 @@ ARG GH_PAT
 ARG GH_ORG
 
 # create an unprivileged user
-RUN auth \    
+RUN adduser \    
     --disabled-password \    
     --gecos "" \    
     --home "/nonexistent" \    
