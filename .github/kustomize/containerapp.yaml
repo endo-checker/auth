@@ -1,6 +1,7 @@
 metadata:
   name: ca-auth
 
+
 kind: containerapp
 name: ca-auth
 resourceGroup: rg-platform
