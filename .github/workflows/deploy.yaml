@@ -55,11 +55,3 @@ jobs:
       acrName: acrendochecker
       cacheKey: cache-${{ github.run_id }}
       customTemplate: true
-
-  route:
-    needs: deploy
-    uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
-    secrets: inherit
-    with:
-      resourceGroup: rg-platform
-      trafficMode: latest
