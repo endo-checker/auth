@@ -11,13 +11,12 @@ import (
 
 	"github.com/endo-checker/auth/model"
 	"github.com/gookit/cache"
-	"github.com/joho/godotenv"
 )
 
 var tkn interface{}
 
 func Auth0SignUp(auth interface{}) *model.SignUp {
-	godotenv.Load()
+	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	json_data, err := json.Marshal(auth)
@@ -44,13 +43,16 @@ func Auth0SignUp(auth interface{}) *model.SignUp {
 
 	respBody := []byte(body)
 	rep := &model.SignUp{}
-	json.Unmarshal(respBody, rep)
+	err = json.Unmarshal(respBody, rep)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	return rep
 }
 
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
-	godotenv.Load()
+	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	json_data, err := json.Marshal(auth)
@@ -77,14 +79,17 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 
 	respBody := []byte(body)
 	rep := &model.SignIn{}
-	json.Unmarshal(respBody, rep)
+	err = json.Unmarshal(respBody, rep)
+	if err != nil {
+		fmt.Println(err)
+	}
 	tkn := cacheToken("token", rep.AccessToken, rep.ExpiresIn)
 
 	return tkn, rep
 }
 
 func GetAuth0(token string) model.UserInfo {
-	godotenv.Load()
+	// godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
 	tkn := getCachedTkn("token")
@@ -107,7 +112,10 @@ func GetAuth0(token string) model.UserInfo {
 
 	respBody := []byte(body)
 	rep := model.UserInfo{}
-	json.Unmarshal(respBody, &rep)
+	err = json.Unmarshal(respBody, &rep)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	return rep
 }
@@ -115,7 +123,10 @@ func GetAuth0(token string) model.UserInfo {
 func cacheToken(tokenName, token string, expires int32) string {
 	if token != "" {
 		cache.Register(cache.DvrFile, cache.NewFileCache(""))
-		cache.Set(tokenName, token, time.Duration(expires)*time.Second)
+		err := cache.Set(tokenName, token, time.Duration(expires)*time.Second)
+		if err != nil {
+			fmt.Println(err)
+		}
 		tkn = cache.Get(tokenName)
 	}
 	return tkn.(string)
@@ -129,7 +140,10 @@ func getCachedTkn(tokenName string) string {
 
 func ClearCache(tokenName string, nullReq interface{}) string {
 	cache.Register(cache.DvrFile, cache.NewFileCache(""))
-	cache.Del(tokenName)
+	err := cache.Del(tokenName)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	return "Cache cleared"
 }

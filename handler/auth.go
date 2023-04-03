@@ -5,7 +5,6 @@ import (
 	"os"
 
 	"github.com/bufbuild/connect-go"
-	"github.com/joho/godotenv"
 
 	pb "github.com/endo-checker/auth/internal/gen/auth/v1"
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
@@ -19,7 +18,8 @@ func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[p
 	reqMsg := req.Msg
 	auth := reqMsg.RegisterAuthUser
 
-	godotenv.Load()
+	// godotenv.Load()
+
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.Connection = "Username-Password-Authentication"
 
@@ -42,7 +42,7 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	reqMsg := req.Msg
 	auth := reqMsg.AuthUserSignIn
 
-	godotenv.Load()
+	// godotenv.Load()
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.ClientSecret = os.Getenv("AUTH_CLIENT_SECRET")
 	auth.GrantType = "password"
