@@ -4,7 +4,7 @@ import (
 	"context"
 	"os"
 
-	"github.com/bufbuild/connect-go"
+	connect "github.com/bufbuild/connect-go"
 
 	pb "github.com/endo-checker/auth/internal/gen/auth/v1"
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
