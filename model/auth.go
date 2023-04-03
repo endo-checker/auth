@@ -13,16 +13,17 @@ type SignUp struct {
 }
 
 type UserInfo struct {
-	Sub        string `json:"sub"`
-	Name       string `json:"name"`
-	Nickname   string `json:"nickname"`
-	Picture    string `json:"picture"`
-	UpdatedAt  string `json:"updated_at"`
-	Email      string `json:"email"`
-	GivenName  string `json:"given_name"`
-	FamilyName string `json:"family_name"`
-	Password   string `json:"password"`
-	UserId     string `json:"user_id"`
+	Sub        string   `json:"sub"`
+	Name       string   `json:"name"`
+	Nickname   string   `json:"nickname"`
+	Picture    string   `json:"picture"`
+	UpdatedAt  string   `json:"updated_at"`
+	Email      string   `json:"email"`
+	GivenName  string   `json:"given_name"`
+	FamilyName string   `json:"family_name"`
+	Password   string   `json:"password"`
+	UserId     string   `json:"user_id"`
+	MetaData   MetaData `json:"user_metadata"`
 }
 
 type SignIn struct {
@@ -31,4 +32,8 @@ type SignIn struct {
 	ExpiresIn   int32  `json:"expires_in"`
 	IdToken     string `json:"id_token"`
 	TokenType   string `json:"token_type"`
+}
+
+type MetaData struct {
+	Id string `json:"id"`
 }

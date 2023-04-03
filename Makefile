@@ -1,5 +1,3 @@
-export APP_PORT := 8084
-
 # load env vars
 -include .env
 export auth0-api-identifier  := $(value AUTH0_API_IDENTIFIER)

@@ -136,4 +136,10 @@ message UserInfo {
     string user_id = 10;
     string username = 11;
     string password = 12;
+    Metadata metadata = 13;
+}
+
+// metadata
+message Metadata {
+    string id = 1;
 }
