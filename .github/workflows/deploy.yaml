@@ -45,13 +45,20 @@ jobs:
           key: cache-${{ github.run_id }}
 
   deploy:
-    needs: 
+    needs:
       - validate
-      - patch 
-    uses: endo-checker/build/.github/workflows/container-app-deploy.yaml@main
+      - patch
+    uses: credibil/build/.github/workflows/container-app-deploy.yaml@main
     secrets: inherit
     with:
-      resourceGroup: rg-platform
-      acrName: acrendochecker
+      resourceGroup: ${{ vars.RESOURCE_GROUP }}
+      acrName: ${{ vars.ACR_NAME }}
       cacheKey: cache-${{ github.run_id }}
-      customTemplate: true
+
+  route:
+    needs: deploy
+    uses: credibil/build/.github/workflows/container-app-route.yaml@main
+    secrets: inherit
+    with:
+      resourceGroup: ${{ vars.RESOURCE_GROUP }}
+      trafficMode: latest
