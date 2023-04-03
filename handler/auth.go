@@ -31,12 +31,11 @@ func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[p
 			Email:      rep.Email,
 			Nickname:   rep.Nickname,
 			GivenName:  rep.GivenName,
-			FamilyName: rep.FamilyName, 
+			FamilyName: rep.FamilyName,
 		},
 	}
 
 	return connect.NewResponse(resp), nil
-
 }
 
 func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignInRequest]) (*connect.Response[pb.SignInResponse], error) {
@@ -84,7 +83,7 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 
 func (s *SignInServer) SignOut(ctx context.Context, req *connect.Request[pb.SignOutRequest]) (*connect.Response[pb.SignOutResponse], error) {
 	reqMsg := req.Msg
-	rsp := ClearCache(reqMsg)
+	rsp := ClearCache("token", reqMsg)
 
 	resp := &pb.SignOutResponse{
 		Message: rsp,

@@ -795,6 +795,279 @@ var _ interface {
 	ErrorName() string
 } = GetAccountResponseValidationError{}
 
+// Validate checks the field values on UpdateAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateAccountRequest) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateAccountRequest with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateAccountRequestMultiError, or nil if none found.
+func (m *UpdateAccountRequest) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateAccountRequest) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if m.GetUserInfo() == nil {
+		err := UpdateAccountRequestValidationError{
+			field:  "UserInfo",
+			reason: "value is required",
+		}
+		if !all {
+			return err
+		}
+		errors = append(errors, err)
+	}
+
+	if all {
+		switch v := interface{}(m.GetUserInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateAccountRequestValidationError{
+					field:  "UserInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateAccountRequestValidationError{
+					field:  "UserInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateAccountRequestValidationError{
+				field:  "UserInfo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateAccountRequestMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateAccountRequestMultiError is an error wrapping multiple validation
+// errors returned by UpdateAccountRequest.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateAccountRequestMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateAccountRequestMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateAccountRequestMultiError) AllErrors() []error { return m }
+
+// UpdateAccountRequestValidationError is the validation error returned by
+// UpdateAccountRequest.Validate if the designated constraints aren't met.
+type UpdateAccountRequestValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateAccountRequestValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateAccountRequestValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateAccountRequestValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateAccountRequestValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateAccountRequestValidationError) ErrorName() string {
+	return "UpdateAccountRequestValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateAccountRequestValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateAccountRequest.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateAccountRequestValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateAccountRequestValidationError{}
+
+// Validate checks the field values on UpdateAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the first error encountered is returned, or nil if there are no violations.
+func (m *UpdateAccountResponse) Validate() error {
+	return m.validate(false)
+}
+
+// ValidateAll checks the field values on UpdateAccountResponse with the rules
+// defined in the proto definition for this message. If any rules are
+// violated, the result is a list of violation errors wrapped in
+// UpdateAccountResponseMultiError, or nil if none found.
+func (m *UpdateAccountResponse) ValidateAll() error {
+	return m.validate(true)
+}
+
+func (m *UpdateAccountResponse) validate(all bool) error {
+	if m == nil {
+		return nil
+	}
+
+	var errors []error
+
+	if all {
+		switch v := interface{}(m.GetUserInfo()).(type) {
+		case interface{ ValidateAll() error }:
+			if err := v.ValidateAll(); err != nil {
+				errors = append(errors, UpdateAccountResponseValidationError{
+					field:  "UserInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		case interface{ Validate() error }:
+			if err := v.Validate(); err != nil {
+				errors = append(errors, UpdateAccountResponseValidationError{
+					field:  "UserInfo",
+					reason: "embedded message failed validation",
+					cause:  err,
+				})
+			}
+		}
+	} else if v, ok := interface{}(m.GetUserInfo()).(interface{ Validate() error }); ok {
+		if err := v.Validate(); err != nil {
+			return UpdateAccountResponseValidationError{
+				field:  "UserInfo",
+				reason: "embedded message failed validation",
+				cause:  err,
+			}
+		}
+	}
+
+	if len(errors) > 0 {
+		return UpdateAccountResponseMultiError(errors)
+	}
+
+	return nil
+}
+
+// UpdateAccountResponseMultiError is an error wrapping multiple validation
+// errors returned by UpdateAccountResponse.ValidateAll() if the designated
+// constraints aren't met.
+type UpdateAccountResponseMultiError []error
+
+// Error returns a concatenation of all the error messages it wraps.
+func (m UpdateAccountResponseMultiError) Error() string {
+	var msgs []string
+	for _, err := range m {
+		msgs = append(msgs, err.Error())
+	}
+	return strings.Join(msgs, "; ")
+}
+
+// AllErrors returns a list of validation violation errors.
+func (m UpdateAccountResponseMultiError) AllErrors() []error { return m }
+
+// UpdateAccountResponseValidationError is the validation error returned by
+// UpdateAccountResponse.Validate if the designated constraints aren't met.
+type UpdateAccountResponseValidationError struct {
+	field  string
+	reason string
+	cause  error
+	key    bool
+}
+
+// Field function returns field value.
+func (e UpdateAccountResponseValidationError) Field() string { return e.field }
+
+// Reason function returns reason value.
+func (e UpdateAccountResponseValidationError) Reason() string { return e.reason }
+
+// Cause function returns cause value.
+func (e UpdateAccountResponseValidationError) Cause() error { return e.cause }
+
+// Key function returns key value.
+func (e UpdateAccountResponseValidationError) Key() bool { return e.key }
+
+// ErrorName returns error name.
+func (e UpdateAccountResponseValidationError) ErrorName() string {
+	return "UpdateAccountResponseValidationError"
+}
+
+// Error satisfies the builtin error interface
+func (e UpdateAccountResponseValidationError) Error() string {
+	cause := ""
+	if e.cause != nil {
+		cause = fmt.Sprintf(" | caused by: %v", e.cause)
+	}
+
+	key := ""
+	if e.key {
+		key = "key for "
+	}
+
+	return fmt.Sprintf(
+		"invalid %sUpdateAccountResponse.%s: %s%s",
+		key,
+		e.field,
+		e.reason,
+		cause)
+}
+
+var _ error = UpdateAccountResponseValidationError{}
+
+var _ interface {
+	Field() string
+	Reason() string
+	Key() bool
+	Cause() error
+	ErrorName() string
+} = UpdateAccountResponseValidationError{}
+
 // Validate checks the field values on SignOutRequest with the rules defined in
 // the proto definition for this message. If any rules are violated, the first
 // error encountered is returned, or nil if there are no violations.
@@ -1266,6 +1539,8 @@ func (m *UserInfo) validate(all bool) error {
 	// no validation rules for UserId
 
 	// no validation rules for Username
+
+	// no validation rules for Password
 
 	if len(errors) > 0 {
 		return UserInfoMultiError(errors)

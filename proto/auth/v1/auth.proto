@@ -14,6 +14,7 @@ service AuthService {
       body : "*"
     };
   };  
+
   // logs a user in
   rpc SignIn(SignInRequest) returns (SignInResponse){
      option (google.api.http) = {
@@ -25,6 +26,14 @@ service AuthService {
   rpc GetAccount(GetAccountRequest) returns (GetAccountResponse){
      option (google.api.http) = {
       post : "/GetAccount"
+      body : "*"
+    };
+  };
+
+  // updates a user in auth0
+  rpc UpdateAccount(UpdateAccountRequest) returns (UpdateAccountResponse){
+     option (google.api.http) = {
+      post : "/UpdateAccount"
       body : "*"
     };
   };
@@ -68,6 +77,16 @@ message GetAccountRequest {
 
 // GetAccountResponse returns the user that was requested
 message GetAccountResponse {
+   UserInfo user_info = 1;
+}
+
+// updates user info 
+message UpdateAccountRequest {
+   UserInfo user_info = 1 [(validate.rules).message.required = true];
+}
+
+// returns the user that was updated
+message UpdateAccountResponse {
    UserInfo user_info = 1;
 }
 
@@ -116,4 +135,5 @@ message UserInfo {
     string updated_at = 9;
     string user_id = 10;
     string username = 11;
+    string password = 12;
 }

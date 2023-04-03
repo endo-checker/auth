@@ -149,6 +149,39 @@
           "AuthService"
         ]
       }
+    },
+    "/UpdateAccount": {
+      "post": {
+        "summary": "updates a user in auth0",
+        "operationId": "AuthService_UpdateAccount",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAccountResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/v1UpdateAccountRequest"
+            }
+          }
+        ],
+        "tags": [
+          "AuthService"
+        ]
+      }
     }
   },
   "definitions": {
@@ -314,6 +347,24 @@
       },
       "title": "SignOutResponse returns the user null value"
     },
+    "v1UpdateAccountRequest": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      },
+      "title": "updates user info"
+    },
+    "v1UpdateAccountResponse": {
+      "type": "object",
+      "properties": {
+        "userInfo": {
+          "$ref": "#/definitions/v1UserInfo"
+        }
+      },
+      "title": "returns the user that was updated"
+    },
     "v1UserInfo": {
       "type": "object",
       "properties": {
@@ -348,6 +399,9 @@
           "type": "string"
         },
         "username": {
+          "type": "string"
+        },
+        "password": {
           "type": "string"
         }
       },

@@ -78,7 +78,7 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	respBody := []byte(body)
 	rep := &model.SignIn{}
 	json.Unmarshal(respBody, rep)
-	tkn := cacheToken(rep.AccessToken, rep.ExpiresIn)
+	tkn := cacheToken("token", rep.AccessToken, rep.ExpiresIn)
 
 	return tkn, rep
 }
@@ -87,7 +87,7 @@ func GetAuth0(token string) model.UserInfo {
 	godotenv.Load()
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
-	tkn := getCachedTkn()
+	tkn := getCachedTkn("token")
 	url := auth0Domain + "/userinfo"
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
@@ -112,24 +112,24 @@ func GetAuth0(token string) model.UserInfo {
 	return rep
 }
 
-func cacheToken(token string, expires int32) string {
+func cacheToken(tokenName, token string, expires int32) string {
 	if token != "" {
 		cache.Register(cache.DvrFile, cache.NewFileCache(""))
-		cache.Set("token", token, time.Duration(expires)*time.Second)
-		tkn = cache.Get("token")
+		cache.Set(tokenName, token, time.Duration(expires)*time.Second)
+		tkn = cache.Get(tokenName)
 	}
 	return tkn.(string)
 }
 
-func getCachedTkn() string {
+func getCachedTkn(tokenName string) string {
 	cache.Register(cache.DvrFile, cache.NewFileCache(""))
-	tkn = cache.Get("token")
+	tkn = cache.Get(tokenName)
 	return tkn.(string)
 }
 
-func ClearCache(nullReq interface{}) string {
+func ClearCache(tokenName string, nullReq interface{}) string {
 	cache.Register(cache.DvrFile, cache.NewFileCache(""))
-	cache.Del("token")
+	cache.Del(tokenName)
 
 	return "Cache cleared"
 }

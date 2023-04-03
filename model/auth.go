@@ -21,6 +21,8 @@ type UserInfo struct {
 	Email      string `json:"email"`
 	GivenName  string `json:"given_name"`
 	FamilyName string `json:"family_name"`
+	Password   string `json:"password"`
+	UserId     string `json:"user_id"`
 }
 
 type SignIn struct {
