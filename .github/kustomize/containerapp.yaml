@@ -1,8 +1,8 @@
 metadata:
-  name: ca-demo
+  name: ca-auth
 
 kind: containerapp
-name: ca-demo
+name: ca-auth
 resourceGroup: rg-platform
 type: Microsoft.App/containerApps
 identity:
