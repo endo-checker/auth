@@ -44,21 +44,21 @@ jobs:
           path: ./.github/kustomize/kustomization.yaml
           key: cache-${{ github.run_id }}
 
-  deploy:
+  auth-deploy:
     needs:
       - validate
       - patch
     uses: endo-checker/build/.github/workflows/container-app-deploy.yaml@main
     secrets: inherit
     with:
-      resourceGroup: ${{ vars.RESOURCE_GROUP }}
-      acrName: ${{ vars.ACR_NAME }}
+      resourceGroup: rg-platform
+      acrName: acrendochecker
       cacheKey: cache-${{ github.run_id }}
 
   route:
-    needs: deploy
+    needs: auth-deploy
     uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
     secrets: inherit
     with:
-      resourceGroup: ${{ vars.RESOURCE_GROUP }}
+      resourceGroup: rg-platform
       trafficMode: latest
