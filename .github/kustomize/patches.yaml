@@ -3,7 +3,7 @@
 # Container App name
 - op: replace
   path: /name
-  value: ca-issuance
+  value: ca-auth
 
 # Container App env id
 - op: replace
@@ -23,7 +23,7 @@
 # container name
 - op: replace
   path: /properties/template/containers/0/name
-  value: issuance
+  value: auth
 
 # env vars
 - op: add
