@@ -1,0 +1,16 @@
+# Patches specific to this repo
+
+# container resources
+# - op: replace
+#   path: /properties/template/containers/0/resources
+#   value:
+#     cpu: 0.5
+#     memory: 1Gi
+
+# container scaling
+# - op: replace
+#   path: /properties/template/scale
+#   value:
+#     minReplicas: 1
+#     maxReplicas: 1
+

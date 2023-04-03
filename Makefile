@@ -32,6 +32,10 @@ kill:
 	lsof -P -i TCP -s TCP:LISTEN | grep 8084 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 	lsof -P -i TCP -s TCP:LISTEN | grep 9090 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 
+.PHONY: lint
+lint:
+	golangci-lint run ./...
+	
 .PHONY: test
 test:
 	go test -v ./handler/...
