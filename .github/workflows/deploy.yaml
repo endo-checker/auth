@@ -48,7 +48,7 @@ jobs:
     needs:
       - validate
       - patch
-    uses: credibil/build/.github/workflows/container-app-deploy.yaml@main
+    uses: endo-checker/build/.github/workflows/container-app-deploy.yaml@main
     secrets: inherit
     with:
       resourceGroup: ${{ vars.RESOURCE_GROUP }}
@@ -57,7 +57,7 @@ jobs:
 
   route:
     needs: deploy
-    uses: credibil/build/.github/workflows/container-app-route.yaml@main
+    uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
     secrets: inherit
     with:
       resourceGroup: ${{ vars.RESOURCE_GROUP }}
