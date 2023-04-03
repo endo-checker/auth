@@ -1,9 +1,12 @@
+export APP_PORT := 8084
+
 # load env vars
 -include .env
 export auth0-api-identifier  := $(value AUTH0_API_IDENTIFIER)
 export auth0-domain  := $(value AUTH0_DOMAIN)
-export auth0-client-id  := $(value AUTH0_CLIENT_ID)
-export auth0-client-secret  := $(value AUTH0_CLIENT_SECRET)
+export auth0-client-id  := $(value AUTH_CLIENT_ID)
+export auth0-client-secret  := $(value AUTH_CLIENT_SECRET)
+export audience  := $(value AUTH_AUDIENCE)
 
 # proto generates code from the most recent proto file(s)
 .PHONY: proto
@@ -23,13 +26,13 @@ rungo:
 run:
 	dapr run \
 		--app-id auth \
-		--app-port 8084 \
+		--app-port ${APP_PORT} \
 		--app-protocol http \
 		go run .
 
 .PHONY: kill
 kill:
-	lsof -P -i TCP -s TCP:LISTEN | grep 8084 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
+	lsof -P -i TCP -s TCP:LISTEN | grep ${APP_PORT} | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 	lsof -P -i TCP -s TCP:LISTEN | grep 9090 | awk '{print $2}' | { read pid; kill -9 ${pid}; }
 
 .PHONY: lint
