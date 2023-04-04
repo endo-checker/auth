@@ -32,7 +32,10 @@ func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[p
 			FamilyName: rep.FamilyName,
 		},
 	}
-
+	err := connect.NewResponse(resp)
+	if err != nil {
+		return err, nil
+	}
 	return connect.NewResponse(resp), nil
 }
 
@@ -53,6 +56,10 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 		Scope:       rsp.Scope,
 		ExpiresIn:   rsp.ExpiresIn,
 		TokenType:   rsp.TokenType,
+	}
+	err := connect.NewResponse(resp)
+	if err != nil {
+		return err, nil
 	}
 	return connect.NewResponse(resp), nil
 }
@@ -75,6 +82,10 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 			FamilyName: rsp.FamilyName,
 		},
 	}
+	err := connect.NewResponse(resp)
+	if err != nil {
+		return err, nil
+	}
 	return connect.NewResponse(resp), nil
 }
 
@@ -84,6 +95,10 @@ func (s *SignInServer) SignOut(ctx context.Context, req *connect.Request[pb.Sign
 
 	resp := &pb.SignOutResponse{
 		Message: rsp,
+	}
+	err := connect.NewResponse(resp)
+	if err != nil {
+		return err, nil
 	}
 	return connect.NewResponse(resp), nil
 }
