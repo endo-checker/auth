@@ -2,12 +2,12 @@ buf.build/gen/go/envoyproxy/protoc-gen-validate/protocolbuffers/go v1.30.0-20221
 buf.build/gen/go/envoyproxy/protoc-gen-validate/protocolbuffers/go v1.30.0-20221025150516-6607b10f00ed.1/go.mod h1:HLYqX7rDxQxZ7PS2u+riJ0dXUb0n7NKmYrc0Z+2Mer0=
 github.com/bufbuild/connect-go v1.6.0 h1:OCEB8JuEuvcY5lEKZCQE95CUscqkDtLnQceNhDgi92k=
 github.com/bufbuild/connect-go v1.6.0/go.mod h1:GmMJYR6orFqD0Y6ZgX8pwQ8j9baizDrIQMm1/a6LnHk=
-github.com/cespare/xxhash/v2 v2.2.0 h1:DC2CZ1Ep5Y4k3ZQ899DldepgrayRUGE6BBZ/cd9Cj44=
-github.com/cespare/xxhash/v2 v2.2.0/go.mod h1:VGX0DQ3Q6kWi7AoAeZDth3/j3BFtOZR5XLFGgcrjCOs=
+github.com/cespare/xxhash v1.1.0 h1:a6HrQnmkObjyL+Gs60czilIUGqrzKutQD6XZog3p+ko=
+github.com/cespare/xxhash/v2 v2.1.2 h1:YRXhKfTDauu4ajMg1TPgFO5jnlC2HCbmLXMcTG5cbYE=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f h1:lO4WD4F/rVNCu3HqELle0jiPLLBs70cWOduZpkS1E78=
-github.com/endo-checker/common v1.0.0 h1:T8n30rOmIPPB1HAZFLsypyGVYPkeCk7Gc1F9shOwTrg=
-github.com/endo-checker/common v1.0.0/go.mod h1:qgHh2aLDop2kt9NNwqHg5GZywrXjnOqqqaztxVJNIbI=
+github.com/endo-checker/protostore v1.0.1 h1:VcQirwCe/R0p1exV/1raUn8YYVchOxjNJB5pzCsGgKo=
+github.com/endo-checker/protostore v1.0.1/go.mod h1:LC2e6e3vMaOKwjIQHI3em6gRkQHCvzJjSMvtkNR1Jpc=
 github.com/go-redis/redis/v8 v8.11.5 h1:AcZZR7igkdvfVmQTPnu9WE37LRrO/YrBH5zWyjDC0oI=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/gomodule/redigo v1.8.9 h1:Sl3u+2BI/kk+VEatbj0scLdrFhjPmbxOc1myhDP41ws=

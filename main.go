@@ -6,7 +6,7 @@ import (
 
 	"github.com/endo-checker/auth/handler"
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
-	sv "github.com/endo-checker/common/server"
+	sv "github.com/endo-checker/protostore/server"
 	"github.com/joho/godotenv"
 )
 
@@ -25,5 +25,5 @@ func main() {
 		ServeMux: &http.ServeMux{},
 	}
 
-	sv.Server.ConnectServer(srvr, path, hndlr, addr)
+	srvr.ConnectServer(path, hndlr, addr)
 }
