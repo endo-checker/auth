@@ -1,5 +1,3 @@
-# load env vars
--include .env
 
 
 # proto generates code from the most recent proto file(s)
