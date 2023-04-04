@@ -54,11 +54,12 @@ jobs:
       resourceGroup: ${{ vars.RESOURCE_GROUP }}
       acrName: ${{ vars.ACR_NAME }}
       cacheKey: cache-${{ github.run_id }}
+      customTemplate: true
 
-  route:
-    needs: deploy
-    uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
-    secrets: inherit
-    with:
-      resourceGroup: ${{ vars.RESOURCE_GROUP }}
-      trafficMode: latest
+  # route:
+  #   needs: deploy
+  #   uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
+  #   secrets: inherit
+  #   with:
+  #     resourceGroup: ${{ vars.RESOURCE_GROUP }}
+  #     trafficMode: latest
