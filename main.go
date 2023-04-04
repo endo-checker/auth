@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 	"net/http"
 
@@ -13,11 +14,11 @@ import (
 var addr = ":8084"
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if err := godotenv.Load(); err != nil {
+		log.Fatalf("No .env found: %v", err)
 	}
 
+	// Create a new server
 	svc := &handler.SignInServer{}
 	path, hndlr := pbcnn.NewAuthServiceHandler(svc)
 
@@ -25,5 +26,10 @@ func main() {
 		ServeMux: &http.ServeMux{},
 	}
 
-	srvr.ConnectServer(path, hndlr, addr)
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	if err := srvr.ConnectServer(ctx, path, hndlr, addr); err != nil {
+		log.Fatalf("Failed to start server: %v", err)
+	}
 }
