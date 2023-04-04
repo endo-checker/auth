@@ -5,6 +5,7 @@ kind: Kustomization
 # - containerapp.yaml
 
 patches:
-  - path: patches.yaml
-    target:
-      kind: containerapp
+- path: patches.yaml
+  target:
+    kind: containerapp
+
