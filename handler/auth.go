@@ -21,7 +21,10 @@ func (s *SignInServer) CreateAccount(ctx context.Context, req *connect.Request[p
 	auth.ClientId = os.Getenv("AUTH_CLIENT_ID")
 	auth.Connection = "Username-Password-Authentication"
 
-	rep := Auth0SignUp(auth)
+	rep, err := Auth0SignUp(auth)
+	if err != nil {
+		return nil, err
+	}
 
 	resp := &pb.CreateAccountResponse{
 		Id: rep.Id,
@@ -47,7 +50,10 @@ func (s *SignInServer) SignIn(ctx context.Context, req *connect.Request[pb.SignI
 	auth.GrantType = "password"
 	auth.Audience = ""
 
-	tkn, rsp := Auth0SignIn(auth)
+	tkn, rsp, err := Auth0SignIn(auth)
+	if err != nil {
+		return nil, err
+	}
 
 	resp := &pb.SignInResponse{
 		AccessToken: tkn,
@@ -66,7 +72,10 @@ func (s *SignInServer) GetAccount(ctx context.Context, req *connect.Request[pb.G
 	reqMsg := req.Msg.AccessToken
 	token := reqMsg
 
-	rsp := GetAuth0(token)
+	rsp, err := GetAuth0(token)
+	if err != nil {
+		return nil, err
+	}
 
 	resp := &pb.GetAccountResponse{
 		UserInfo: &pb.UserInfo{

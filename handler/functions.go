@@ -15,16 +15,24 @@ import (
 
 var tkn interface{}
 
-// Signs up a user with auth0
-func Auth0SignUp(auth interface{}) *model.SignUp {
-	auth0Domain := os.Getenv("AUTH0_DOMAIN")
+// Gets the auth0 domain and adds custom endpoints
+func auth0Domain(endpoint string) (string, error) {
+	dmn := os.Getenv("AUTH0_DOMAIN") + endpoint
+	return dmn, nil
+}
 
+// Signs up a user with auth0
+func Auth0SignUp(auth interface{}) (*model.SignUp, error) {
 	json_data, err := json.Marshal(auth)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	url := auth0Domain + "/dbconnections/signup"
+	url, err := auth0Domain("/dbconnections/signup")
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	r, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
 	if err != nil {
 		fmt.Println(err)
@@ -48,19 +56,21 @@ func Auth0SignUp(auth interface{}) *model.SignUp {
 		fmt.Println(err)
 	}
 
-	return rep
+	return rep, nil
 }
 
 // Signs in a user with auth0
-func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
-	auth0Domain := os.Getenv("AUTH0_DOMAIN")
-
+func Auth0SignIn(auth interface{}) (string, *model.SignIn, error) {
 	json_data, err := json.Marshal(auth)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	url := auth0Domain + "/oauth/token"
+	url, err := auth0Domain("/oauth/token")
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	r, err := http.NewRequest("POST", url, bytes.NewBuffer(json_data))
 	if err != nil {
 		fmt.Println(err)
@@ -85,15 +95,17 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	}
 	tkn := cacheToken("token", rep.AccessToken, rep.ExpiresIn)
 
-	return tkn, rep
+	return tkn, rep, nil
 }
 
 // Gets an auth0 user from a cached token
-func GetAuth0(token string) model.UserInfo {
-	auth0Domain := os.Getenv("AUTH0_DOMAIN")
-
+func GetAuth0(token string) (*model.UserInfo, error) {
 	tkn := getCachedTkn("token")
-	url := auth0Domain + "/userinfo"
+
+	url, err := auth0Domain("/userinfo")
+	if err != nil {
+		fmt.Println(err)
+	}
 	r, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		fmt.Println(err)
@@ -111,13 +123,13 @@ func GetAuth0(token string) model.UserInfo {
 	}
 
 	respBody := []byte(body)
-	rep := model.UserInfo{}
+	rep := &model.UserInfo{}
 	err = json.Unmarshal(respBody, &rep)
 	if err != nil {
 		fmt.Println(err)
 	}
 
-	return rep
+	return rep, nil
 }
 
 // caches a value for a given key
@@ -147,6 +159,5 @@ func ClearCache(tokenName string, nullReq interface{}) string {
 	if err != nil {
 		fmt.Println(err)
 	}
-
 	return "Cache cleared"
 }
