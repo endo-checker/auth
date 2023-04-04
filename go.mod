@@ -12,6 +12,8 @@ require (
 	google.golang.org/protobuf v1.30.0
 )
 
+replace github.com/bufbuild/connect-go => github.com/bufbuild/connect-go v1.5.1
+
 require (
 	github.com/gookit/gsr v0.0.8 // indirect
 	github.com/rs/cors v1.8.3 // indirect
