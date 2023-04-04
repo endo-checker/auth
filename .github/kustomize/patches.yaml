@@ -10,15 +10,15 @@
   path: /properties/managedEnvironmentId
   value: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.App/managedEnvironments/cae-platform
 
-# Managed Identity
-- op: add
-  path: /
-  value:
-    identity:
-      type: UserAssigned
-      userAssignedIdentities:
-        ? /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform
-        : {}
+# # Managed Identity
+# - op: add
+#   path: /
+#   value:
+# identity:
+#   type: UserAssigned
+#   userAssignedIdentities:
+#     ? /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform
+#     : {}
 
 # container name
 - op: replace

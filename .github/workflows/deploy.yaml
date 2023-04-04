@@ -5,7 +5,7 @@
 #  [skip ci | ci skip | no ci | skip actions | actions skip]
 # See https://docs.github.com/en/actions/managing-workflow-runs/skipping-workflow-runs
 
-name: Deploy AUTH
+name: Deploy Development
 
 on:
   push:
@@ -44,21 +44,21 @@ jobs:
           path: ./.github/kustomize/kustomization.yaml
           key: cache-${{ github.run_id }}
 
-  auth-deploy:
+  deploy:
     needs:
       - validate
       - patch
     uses: endo-checker/build/.github/workflows/container-app-deploy.yaml@main
     secrets: inherit
     with:
-      resourceGroup: rg-platform
-      acrName: acrendochecker
+      resourceGroup: ${{ vars.RESOURCE_GROUP }}
+      acrName: ${{ vars.ACR_NAME }}
       cacheKey: cache-${{ github.run_id }}
 
   route:
-    needs: auth-deploy
+    needs: deploy
     uses: endo-checker/build/.github/workflows/container-app-route.yaml@main
     secrets: inherit
     with:
-      resourceGroup: rg-platform
+      resourceGroup: ${{ vars.RESOURCE_GROUP }}
       trafficMode: latest
