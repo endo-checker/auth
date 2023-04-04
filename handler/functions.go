@@ -15,6 +15,7 @@ import (
 
 var tkn interface{}
 
+// Signs up a user with auth0
 func Auth0SignUp(auth interface{}) *model.SignUp {
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
@@ -50,6 +51,7 @@ func Auth0SignUp(auth interface{}) *model.SignUp {
 	return rep
 }
 
+// Signs in a user with auth0
 func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
@@ -86,6 +88,7 @@ func Auth0SignIn(auth interface{}) (string, *model.SignIn) {
 	return tkn, rep
 }
 
+// Gets an auth0 user from a cached token
 func GetAuth0(token string) model.UserInfo {
 	auth0Domain := os.Getenv("AUTH0_DOMAIN")
 
@@ -117,6 +120,7 @@ func GetAuth0(token string) model.UserInfo {
 	return rep
 }
 
+// caches a value for a given key
 func cacheToken(tokenName, token string, expires int32) string {
 	if token != "" {
 		cache.Register(cache.DvrFile, cache.NewFileCache(""))
@@ -129,12 +133,14 @@ func cacheToken(tokenName, token string, expires int32) string {
 	return tkn.(string)
 }
 
+// gets a cached value for a given key
 func getCachedTkn(tokenName string) string {
 	cache.Register(cache.DvrFile, cache.NewFileCache(""))
 	tkn = cache.Get(tokenName)
 	return tkn.(string)
 }
 
+// clears a cached value for a given key
 func ClearCache(tokenName string, nullReq interface{}) string {
 	cache.Register(cache.DvrFile, cache.NewFileCache(""))
 	err := cache.Del(tokenName)

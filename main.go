@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/endo-checker/auth/handler"
 	pbcnn "github.com/endo-checker/auth/internal/gen/auth/v1/authv1connect"
@@ -11,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var addr = ":8084"
+var addr = ":8080"
 
 func main() {
 	if err := godotenv.Load(); err != nil {
@@ -24,6 +25,12 @@ func main() {
 
 	srvr := sv.Server{
 		ServeMux: &http.ServeMux{},
+	}
+
+	// start server
+	port := os.Getenv("PORT")
+	if port != "" {
+		addr = ":" + port
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())

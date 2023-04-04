@@ -18,24 +18,24 @@ jobs:
     uses: endo-checker/build/.github/workflows/go-validate.yaml@main
     secrets: inherit
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Run tests
-  #       uses: actions/github-script@v6
-  #       with:
-  #         retries: 2
-  #         retry-exempt-status-codes: 401, 403, 404, 422
-  #         github-token: ${{ secrets.REPO_TOKEN }}
-  #         script: |
-  #           github.rest.repos.createDispatchEvent({
-  #             owner: context.repo.owner,
-  #             repo: 'e2e-testing',
-  #             event_type: 'on-demand',
-  #             client_payload: {
-  #               spec: "cypress/e2e/api/issuance.cy.js"
-  #             }
-  #           })
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run tests
+        uses: actions/github-script@v6
+        with:
+          retries: 2
+          retry-exempt-status-codes: 401, 403, 404, 422
+          github-token: ${{ secrets.REPO_TOKEN }}
+          script: |
+            github.rest.repos.createDispatchEvent({
+              owner: context.repo.owner,
+              repo: 'e2e-testing',
+              event_type: 'on-demand',
+              client_payload: {
+                spec: "cypress/e2e/api/issuance.cy.js"
+              }
+            })
 
   # HACK: Add patches with secrets to kustomization.yaml and cache 
   # for use by the 'deploy' job.
