@@ -1,4 +1,4 @@
-FROM golang:1.18.10:alpine AS builder
+FROM golang:alpine AS builder
 
 # github.com/lestrrat-go/jwx
 ARG BUILD_TAGS=jwx_es256k
