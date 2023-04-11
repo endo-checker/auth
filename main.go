@@ -12,7 +12,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var addr = ":8080"
+var addr = ":8084"
 
 func main() {
 	if err := godotenv.Load(); err != nil {
@@ -22,11 +22,14 @@ func main() {
 	svc := &handler.SignInServer{}
 	path, hndlr := pbcnn.NewAuthServiceHandler(svc)
 
-	port := os.Getenv("PORT")
+	port := os.Getenv("APP_PORT")
 	if port == "" {
 		port = addr
 	}
 
 	s := sv.Server{}
-	s.ConnectServer(path, port, hndlr)
+	if s.ConnectServer(path, port, hndlr) != nil {
+		log.Fatalf("Failed to connect server")
+	}
+
 }
