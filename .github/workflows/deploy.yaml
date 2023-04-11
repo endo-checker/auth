@@ -53,4 +53,4 @@ jobs:
       resourceGroup: ${{ vars.RESOURCE_GROUP }}
       acrName: ${{ vars.ACR_NAME }}
       cacheKey: cache-${{ github.run_id }}
-      customTemplate: true
+      # customTemplate: true

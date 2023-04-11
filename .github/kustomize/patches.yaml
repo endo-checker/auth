@@ -1,41 +1,41 @@
-# # Patches specific to this repo
+# Patches specific to this repo
 
-# # Container App name
-# - op: replace
-#   path: /name
-#   value: ca-auth
+# Container App name
+- op: replace
+  path: /name
+  value: ca-auth
 
-# # Container App env id
-# - op: replace
-#   path: /properties/managedEnvironmentId
-#   value: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.App/managedEnvironments/cae-platform
+# Container App env id
+- op: replace
+  path: /properties/managedEnvironmentId
+  value: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.App/managedEnvironments/cae-platform
 
-# # Managed Identity
-# - op: add
-#   path: /
-#   value:
-#     identity:
-#       type: UserAssigned
-#       userAssignedIdentities:
-#         ? /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform
-#         : {}
+# Managed Identity
+- op: add
+  path: /
+  value:
+    identity:
+      type: UserAssigned
+      userAssignedIdentities:
+        ? /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.ManagedIdentity/userAssignedIdentities/id-platform
+        : {}
 
-# # container name
-# - op: replace
-#   path: /properties/template/containers/0/name
-#   value: auth
+# container name
+- op: replace
+  path: /properties/template/containers/0/name
+  value: auth
 
-# # env vars
-# - op: add
-#   path: /properties/template/containers/0/env
-#   value:
-#     - name: AUTH0_API_IDENTIFIER
-#       secretRef: auth0-api-identitfier
-#     - name: AUTH0_DOMAIN
-#       secretRef: auth0-domain
-#     - name: AUTH_CLIENT_ID
-#       secretRef: auth-client-id
-#     - name: AUTH_CLIENT_SECRET
-#       secretRef: auth-client-secret
-#     - name: AUTH_AUDIENCE
-#       secretRef: audience
+# env vars
+- op: add
+  path: /properties/template/containers/0/env
+  value:
+    - name: AUTH0_API_IDENTIFIER
+      secretRef: auth0-api-identitfier
+    - name: AUTH0_DOMAIN
+      secretRef: auth0-domain
+    - name: AUTH_CLIENT_ID
+      secretRef: auth-client-id
+    - name: AUTH_CLIENT_SECRET
+      secretRef: auth-client-secret
+    - name: AUTH_AUDIENCE
+      secretRef: audience
