@@ -1,6 +1,4 @@
-export APP_PORT := 8084
-
-
+export APP_PORT := 8080
 
 # proto generates code from the most recent proto file(s)
 .PHONY: proto
