@@ -27,7 +27,7 @@ properties:
         passwordSecretRef: registry-secret
         # identity:
     dapr:
-      enabled: true
+      enabled: false
       appId: auth
       appPort: 8080
       appProtocol: http
@@ -54,4 +54,3 @@ properties:
     scale:
       minReplicas: 1
       maxReplicas: 1
-      
