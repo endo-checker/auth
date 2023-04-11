@@ -12,9 +12,18 @@ require (
 	google.golang.org/protobuf v1.30.0
 )
 
+require (
+	github.com/golang/protobuf v1.5.3 // indirect
+	golang.org/x/net v0.8.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
+	google.golang.org/grpc v1.54.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
+)
+
 replace github.com/bufbuild/connect-go => github.com/bufbuild/connect-go v1.5.1
 
 require (
+	github.com/dapr/go-sdk v1.7.0
 	github.com/go-chi/chi v1.5.4 // indirect
 	github.com/gookit/gsr v0.0.8 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect
