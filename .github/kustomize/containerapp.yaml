@@ -13,7 +13,7 @@ identity:
 properties:
   managedEnvironmentId: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.App/managedEnvironments/cae-platform
   configuration:
-    activeRevisionsMode: Single
+    activeRevisionsMode: Multiple
     secrets:
       - name: registry-secret
         value: ACR_PASSWORD
@@ -27,7 +27,7 @@ properties:
         passwordSecretRef: registry-secret
         # identity:
     dapr:
-      enabled: false
+      enabled: true
       appId: auth
       appPort: 8080
       appProtocol: http
@@ -37,16 +37,16 @@ properties:
       - image: CONTAINER_IMAGE
         name: auth
         env:
-         - name: AUTH0_API_IDENTIFIER
-           secretRef: auth0-api-identitfier
-         - name: AUTH0_DOMAIN
-           secretRef: auth0-domain
-         - name: AUTH_CLIENT_ID
-           secretRef: auth-client-id
-         - name: AUTH_CLIENT_SECRET
-           secretRef: auth-client-secret
-         - name: AUTH_AUDIENCE
-           secretRef: audience
+          - name: AUTH0_API_IDENTIFIER
+            secretRef: auth0-api-identitfier
+          - name: AUTH0_DOMAIN
+            secretRef: auth0-domain
+          - name: AUTH_CLIENT_ID
+            secretRef: auth-client-id
+          - name: AUTH_CLIENT_SECRET
+            secretRef: auth-client-secret
+          - name: AUTH_AUDIENCE
+            secretRef: audience
         resources:
           cpu: 0.5
           memory: 1Gi

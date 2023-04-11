@@ -1,3 +1,5 @@
+export APP_PORT := 8084
+
 
 
 # proto generates code from the most recent proto file(s)
@@ -12,7 +14,13 @@ proto:
 
 .PHONY: run
 run:
-	go run -tags jwx_es256k .
+	dapr run \
+		--app-id auth \
+		--app-port ${APP_PORT} \
+		--app-protocol http \
+		--config ./.dapr/config.yaml \
+		--components-path ./.dapr/components \
+		go run .
 
 .PHONY: lint
 lint:
@@ -20,4 +28,4 @@ lint:
 	
 .PHONY: test
 test:
-	go test -v -cover -tags jwx_es256k ./...
+	go test -v ./...
