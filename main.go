@@ -13,7 +13,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
-var addr = "8084"
+const addr = "8084"
 
 func main() {
 	if err := godotenv.Load(); err != nil {
