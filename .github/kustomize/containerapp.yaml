@@ -13,7 +13,7 @@ identity:
 properties:
   managedEnvironmentId: /subscriptions/2da318e2-604b-4f60-8984-b801b824a602/resourceGroups/rg-platform/providers/Microsoft.App/managedEnvironments/cae-platform
   configuration:
-    activeRevisionsMode: Multiple
+    activeRevisionsMode: Single
     secrets:
       - name: registry-secret
         value: ACR_PASSWORD
