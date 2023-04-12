@@ -36,6 +36,7 @@ jobs:
             {"op": "add", "path": "/properties/configuration/secrets/-", "value": {"name": "audience", "value": "${{ secrets.AUTH_AUDIENCE }}"}}
           ]'
 
+          
       - name: Cache kustomization.yaml
         uses: actions/cache/save@v3
         id: cache
