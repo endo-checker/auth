@@ -26,14 +26,6 @@ func main() {
 		port = addr
 	}
 
-	// // Dapr client for downstream services
-	// time.Sleep(2 * time.Second)
-	// client, err := dapr.NewClient()
-	// if err != nil {
-	// 	log.Fatalf("failed to create dapr client: %v", err)
-	// }
-	// defer client.Close()
-
 	svr := sv.Server{}
 	if svr.ConnectServer(path, ":"+port, hndlr) != nil {
 		log.Fatalf("Failed to connect server")
